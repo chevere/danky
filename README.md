@@ -42,6 +42,14 @@ return
     EOT;
 ```
 
+```php
+<?php
+// index.php
+require_once __DIR__ . '/vendor/autoload.php';
+
+echo include __DIR__ . '/web/views/home.php';
+```
+
 ```html
 <main>
     <quote>"O sea, yo la encuentro rica." --Redoles</quote>
