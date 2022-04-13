@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Chevere\Danky;
 
 use function Chevere\Message\message;
+use Chevere\Throwable\Errors\TypeError;
 use Chevere\Throwable\Exceptions\InvalidArgumentException;
 use ReflectionFunction;
 use ReflectionParameter;
@@ -55,6 +56,11 @@ function import(string $relPath, string ...$namedVars): string
 
     return match (true) {
         is_string($callable) => $callable,
-        is_numeric($callable) => strval($callable),
+        is_scalar($callable) => strval($callable),
+        method_exists($callable, '__toString') => $callable->__toString(),
+        default => throw new TypeError(
+            message('Invalid return type provided for template %path%')
+                ->code('%path%', $path)
+        )
     };
 }
