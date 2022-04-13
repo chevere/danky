@@ -13,26 +13,48 @@ declare(strict_types=1);
 
 namespace Chevere\Danky;
 
-use Chevere\Str\Str;
+use function Chevere\Message\message;
+use Chevere\Throwable\Exceptions\InvalidArgumentException;
+use ReflectionFunction;
+use ReflectionParameter;
 
 function import(string $relPath, string ...$namedVars): string
 {
-    $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 0)[0];
-    $file = $backtrace['file'];
-    $basePath = dirname($file);
-    if (!str_starts_with($relPath, './')) {
-        $relPath = './' . $relPath;
+    $path = (new ImportPath($relPath))->path();
+    $realPath = realpath($path);
+    if (!$realPath) {
+        throw new InvalidArgumentException(
+            message('Import path %path% not found')
+                ->code('%path%', $path)
+        );
     }
-    if (!str_ends_with($relPath, '.php')) {
-        $relPath .= '.php';
-    }
-    $absPath = (new Str($relPath))
-            ->withReplaceFirst('./', $basePath . '/');
-    $realPath = $absPath->__toString();
-    $callable = require realpath($realPath);
-    if (!is_callable($callable)) {
-        return $callable;
+    $callable = require $realPath;
+    if (is_callable($callable)) {
+        $reflection = new ReflectionFunction($callable);
+        $parameters = $reflection->getParameters();
+        $missingVars = [];
+        /** @var ReflectionParameter $parameter */
+        foreach ($parameters as $pos => $parameter) {
+            if ($parameter->isOptional()) {
+                continue;
+            }
+            if (!array_key_exists($parameter->name, $namedVars)) {
+                $missingVars[] = $parameter->name;
+            }
+        }
+        if ($missingVars !== []) {
+            throw new InvalidArgumentException(
+                message('Missing variables %parameters% for template %path%')
+                    ->code('%path%', $path)
+                    ->code('%parameters%', implode(', ', $missingVars))
+            );
+        }
+
+        return $callable(...$namedVars);
     }
 
-    return $callable(...$namedVars);
+    return match (true) {
+        is_string($callable) => $callable,
+        is_numeric($callable) => strval($callable),
+    };
 }
