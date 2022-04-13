@@ -6,7 +6,9 @@
 
 [![Build](https://img.shields.io/github/workflow/status/chevere/danky/Test?style=flat-square)](https://github.com/chevere/danky/actions) ![Code size](https://img.shields.io/github/languages/code-size/chevere/danky?style=flat-square) [![Apache-2.0](https://img.shields.io/github/license/chevere/danky?style=flat-square)](LICENSE)
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=chevere_Danky&metric=alert_status)](https://sonarcloud.io/dashboard?id=chevere_Danky) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=chevere_Danky&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=chevere_Danky) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=chevere_Danky&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=chevere_Danky) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=chevere_Danky&metric=security_rating)](https://sonarcloud.io/dashboard?id=chevere_Danky) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=chevere_Danky&metric=coverage)](https://sonarcloud.io/dashboard?id=chevere_Danky) [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=chevere_Danky&metric=sqale_index)](https://sonarcloud.io/dashboard?id=chevere_Danky) [![CodeFactor](https://www.codefactor.io/repository/github/chevere/danky/badge)](https://www.codefactor.io/repository/github/chevere/danky) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/b956754f8ff04aaa9ca24a6e4cc21661)](https://www.codacy.com/gh/chevere/danky/dashboard)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=chevere_danky&metric=alert_status)](https://sonarcloud.io/dashboard?id=chevere_danky) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=chevere_danky&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=chevere_danky) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=chevere_danky&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=chevere_danky) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=chevere_danky&metric=security_rating)](https://sonarcloud.io/dashboard?id=chevere_danky) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=chevere_danky&metric=coverage)](https://sonarcloud.io/dashboard?id=chevere_danky) [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=chevere_danky&metric=sqale_index)](https://sonarcloud.io/dashboard?id=chevere_danky) [![CodeFactor](https://www.codefactor.io/repository/github/chevere/danky/badge)](https://www.codefactor.io/repository/github/chevere/danky) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/b956754f8ff04aaa9ca24a6e4cc21661)](https://www.codacy.com/gh/chevere/danky/dashboard)
+
+![Danky](.github/banner/danky-logo.webp)
 
 Danky is a static site generator (SSG) and templating system for PHP.
 
@@ -60,7 +62,7 @@ echo include __DIR__ . '/web/views/home.php';
 
 ## Why Danky?
 
-Although PHP is an extraordinary language for templates, it gets dirt when it get mixed with HTML markup. This problem drove template-syntax driven alternatives (Twig, Smarty, Blade, etc.) where PHP get either limited or stripped away as a reflection of its times, to how we used to build websites.
+Although PHP is an extraordinary language for templates, it gets dirt when it get mixed with HTML markup. This problem drove development for template-syntax alternatives (Twig, Smarty, Blade, etc.) where PHP get either limited or stripped away as a reflection of its times, to how we used to build websites.
 
 Danky doesn't need a template language. It is like Plates as uses native PHP, but Danky is stricter as templates are typed, closed and testeable.
 
