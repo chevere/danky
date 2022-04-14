@@ -10,14 +10,14 @@
 
 ![Danky](.github/banner/danky-logo-sticker.webp)
 
-Danky is a static site generator (SSG) and templating system for PHP.
+## What is Danky?
 
-## Get Danky!
+Danky is a template system for PHP. Contrary to all other template systems and engines, in Danky **templates are functions** provided as file returns.
 
-Contrary to all template engines, in Danky templates are **functions** provided as file returns. This is Danky in action:
+✅ In Danky, templates **explicit declare** its scope and parameters.
 
 ```php
-// quote.php
+<?php // quote.php
 return function(string $text, string $author): string {
     return
         <<<EOT
@@ -26,15 +26,17 @@ return function(string $text, string $author): string {
 };
 ```
 
+👽 Danky hits you higher as you can create **nested templates**.
+
 ```php
-// home.php
+<?php // home.php
 use function Chevere\Danky\import;
 
 return function(): string {
     $quote = import(
         'quote',
-        text: 'O sea, yo la encuentro rica.',
-        author: 'Redoles'
+        text: 'Hello, world!',
+        author: 'Rodolfo'
     );
     return <<<EOT
     <main>
@@ -44,38 +46,37 @@ return function(): string {
 }
 ```
 
+🦄 Danky stuff are **simple strings**, wire it to your please.
+
 ```php
-<?php
-// index.php
+<?php // index.php
 use function Chevere\Danky\import;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-echo import('/web/views/home');
+echo import('home');
 ```
 
 ```html
 <main>
-    <quote>"O sea, yo la encuentro rica." --Redoles</quote>
+    <quote>"Hello, world!" --Rodolfo</quote>
 </main>
 ```
 
-👽 Danky gets you higher when you realize that you can create **nested templates**.
+## Danky motivation
 
-## Why Danky?
+PHP is an extraordinary language for templates, but it gets dirt when mixed with large HTML markup. This problem drove development for template-syntax alternatives ([Twig](https://twig.symfony.com/), [Smarty](https://www.smarty.net/), [Latte](https://latte.nette.org/en/), etc.) where PHP get either limited or stripped away. These systems where a reflection of its times, to how we used to build and published websites.
 
-Although PHP is an extraordinary language for templates, it gets dirt when it get mixed with HTML markup. This problem drove development for template-syntax alternatives (Twig, Smarty, Blade, etc.) where PHP get either limited or stripped away as a reflection of its times, to how we used to build websites.
-
-Danky doesn't need a template language. It is like Plates as uses native PHP, but Danky is stricter as templates are typed, closed and testeable.
+Danky is on the [Plates](https://platesphp.com/) category, both use native PHP without requiring to learn a template syntax. But Danky is **stricter** as templates are typed, scooped under a function and highly testeable.
 
 ## Danky times
 
 ### Dead simple
 
-Define your website routes, its route-scoped variables and the views.
+Define your views, an entrypoint and `import` passing the variables.
 
-* Creates `/paths` for your routes and bind views for it.
-* Configure route redirects and more.
+* Simple to follow workflow.
+* No extra magic.
 
 ### No template engine
 
@@ -83,18 +84,21 @@ Danky doesn't use a template engine, it is just PHP to HTML.
 
 * Full PHP syntax support.
 * Re-usable view-scooped templates.
-* No need to learn any template engine/syntax.
+* No need to learn any template syntax.
 
 ### Safe
 
-Danky templates declares their signature for strong-typed checks. Templates can be easily tested, and Danky provides all the tooling to safely handle variables in these.
+Danky templates declares their signature for strong-typed checks.
+
+* Templates can be easily tested.
+* Strict runtime checking.
 
 ### Cheap
 
-Danky runs with very low third-party dependencies and it generates HTML files which can be deployed to any webserver.
+Danky runs with very low dependencies and it generates documents that can be used for any purpose.
 
 * Lightweight footprint.
-* No need to hosting a complex dynamic website.
+* Generate HTML and other types of markup.
 
 ### Fast
 
@@ -102,7 +106,7 @@ Get started in minutes and start previewing website changes instantly as you dev
 
 * **Getting started** will take you less than 5 minutes.
 * Preview your changes on-the-fly.
-* Generate websites in seconds.
+* Generate documents in seconds.
 
 ## License
 
