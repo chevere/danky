@@ -12,9 +12,7 @@
         }
     ],
     "require": {
-        "chevere/chevere": "^0.7",
-        "chevere/workflow": "^0.2",
-        "chevere/throwable-handler": "^0.3"
+        "chevere/chevere": "^0.7"
     },
     "require-dev": {
         "chevere/var-dump": "^0.2",
@@ -22,7 +20,9 @@
         "symplify/easy-coding-standard": "^9.4"
     },
     "autoload": {
-        "files": ["src/functions.php"],
+        "files": [
+            "src/functions.php"
+        ],
         "psr-4": {
             "Chevere\\Danky\\": "src/"
         }
