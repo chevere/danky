@@ -36,20 +36,23 @@ $quote = import(
     author: 'Redoles'
 );
 
-return
-    <<<EOT
+return function(): string {
+    return <<<EOT
     <main>
         $quote
     </main>
     EOT;
+}
 ```
 
 ```php
 <?php
 // index.php
+use function Chevere\Danky\import;
+
 require_once __DIR__ . '/vendor/autoload.php';
 
-echo include __DIR__ . '/web/views/home.php';
+echo import('/web/views/home');
 ```
 
 ```html
