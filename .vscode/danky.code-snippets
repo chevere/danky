@@ -1,0 +1,16 @@
+{
+    "danky": {
+        "description": "Danky template",
+        "prefix": "danky-template",
+        "body": [
+            "<?php",
+            "",
+            "return function(): string",
+            "{",
+            "\treturn <<<EOT",
+            "\t\t$0",
+            "\tEOT;",
+            "};"
+        ]
+    }
+}

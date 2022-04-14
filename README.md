@@ -14,7 +14,7 @@ Danky is a static site generator (SSG) and templating system for PHP.
 
 ## Get Danky!
 
-Contrary to all template engines, in Danky templates are **file returns**. This is Danky in action:
+Contrary to all template engines, in Danky templates are **functions** provided as file returns. This is Danky in action:
 
 ```php
 // quote.php
@@ -30,26 +30,28 @@ return function(string $text, string $author): string {
 // home.php
 use function Chevere\Danky\import;
 
-$quote = import(
-    'quote',
-    text: 'O sea, yo la encuentro rica.',
-    author: 'Redoles'
-);
-
-return
-    <<<EOT
+return function(): string {
+    $quote = import(
+        'quote',
+        text: 'O sea, yo la encuentro rica.',
+        author: 'Redoles'
+    );
+    return <<<EOT
     <main>
         $quote
     </main>
     EOT;
+}
 ```
 
 ```php
 <?php
 // index.php
+use function Chevere\Danky\import;
+
 require_once __DIR__ . '/vendor/autoload.php';
 
-echo include __DIR__ . '/web/views/home.php';
+echo import('/web/views/home');
 ```
 
 ```html

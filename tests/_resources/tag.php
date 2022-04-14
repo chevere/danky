@@ -11,8 +11,9 @@
 
 declare(strict_types=1);
 
-use function Chevere\Danky\import;
-
-require_once __DIR__ . '/vendor/autoload.php';
-
-echo import('./web/views/home');
+return function (string $tag, string $content): string {
+    return
+        <<<EOT
+        <$tag>$content</$tag>
+        EOT;
+};

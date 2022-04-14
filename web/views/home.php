@@ -13,21 +13,22 @@ declare(strict_types=1);
 
 use function Chevere\Danky\import;
 
-$headerTag = import('common/header');
-$footerTag = import('common/footer');
-$title = 'Home';
-$head = <<<EOT
-    <link rel="stylesheet" href="/web/css/home.css">
-EOT;
-$body = <<<EOT
-$headerTag
-    <main>$title</main>
-$footerTag
-EOT;
+return function (): string {
+    $headerTag = import('common/header');
+    $footerTag = import('common/footer');
+    $title = 'Home';
+    $head = <<<EOT
+        <link rel="stylesheet" href="/web/css/home.css">
+    EOT;
+    $body = <<<EOT
+    $headerTag
+        <main>$title</main>
+    $footerTag
+    EOT;
 
-return
-    import(
+    return import(
         'container/html',
         head: $head,
         body: $body,
     );
+};
