@@ -1,0 +1,16 @@
+{
+    "template": {
+        "description": "Template",
+        "prefix": "template",
+        "body": [
+            "<?php",
+            "",
+            "return function(): string",
+            "{",
+            "\treturn <<<EOT",
+            "\t\t$0",
+            "\tEOT;",
+            "};"
+        ]
+    }
+}
