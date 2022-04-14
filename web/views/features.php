@@ -14,7 +14,7 @@ declare(strict_types=1);
 return function (): string {
     $title = 'Features';
 
-    return <<<EOT
+    return <<<HTML
         <main>$title</main>
-    EOT;
+    HTML;
 };

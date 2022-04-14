@@ -20,9 +20,9 @@ Danky is a template system for PHP. Contrary to all other template systems and e
 <?php // quote.php
 return function(string $text, string $author): string {
     return
-        <<<EOT
+        <<<HTML
         <quote>"$text" --$author</quote>
-        EOT;
+        HTML;
 };
 ```
 
@@ -38,11 +38,11 @@ return function(): string {
         text: 'Hello, world!',
         author: 'Rodolfo'
     );
-    return <<<EOT
+    return <<<HTML
     <main>
         $quote
     </main>
-    EOT;
+    HTML;
 }
 ```
 

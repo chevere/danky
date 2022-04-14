@@ -17,11 +17,11 @@ return function (string $head, string $body, string $lang = 'en'): string {
     $headTag = import('head', head: $head);
     $bodyTag = import('body', body: $body);
 
-    return <<<EOT
+    return <<<HTML
     <!DOCTYPE html>
     <html lang="$lang">
     $headTag
     $bodyTag
     </html>
-    EOT;
+    HTML;
 };

@@ -17,14 +17,14 @@ return function (): string {
     $headerTag = import('common/header');
     $footerTag = import('common/footer');
     $title = 'Home';
-    $head = <<<EOT
+    $head = <<<HTML
         <link rel="stylesheet" href="/web/css/home.css">
-    EOT;
-    $body = <<<EOT
+    HTML;
+    $body = <<<HTML
     $headerTag
         <main>$title</main>
     $footerTag
-    EOT;
+    HTML;
 
     return import(
         'container/html',
