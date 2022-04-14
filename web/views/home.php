@@ -26,9 +26,10 @@ return function (): string {
     $footerTag
     HTML;
 
-    return import(
-        'container/html',
-        head: $head,
-        body: $body,
-    );
+    return
+        import(
+            'container/html',
+            head: $head,
+            body: $body,
+        );
 };

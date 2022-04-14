@@ -12,9 +12,10 @@
 declare(strict_types=1);
 
 return function (string $head): string {
-    return <<<HTML
-    <head>
-    $head
-    </head>
-    HTML;
+    return
+        <<<HTML
+        <head>
+        $head
+        </head>
+        HTML;
 };

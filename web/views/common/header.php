@@ -12,7 +12,8 @@
 declare(strict_types=1);
 
 return function (): string {
-    return <<<HTML
-        <header>Header</header>
-    HTML;
+    return
+        <<<HTML
+            <header>Header</header>
+        HTML;
 };

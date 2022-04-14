@@ -38,11 +38,12 @@ return function(): string {
         text: 'Hello, world!',
         author: 'Rodolfo'
     );
-    return <<<HTML
-    <main>
-        $quote
-    </main>
-    HTML;
+    return
+        <<<HTML
+        <main>
+            $quote
+        </main>
+        HTML;
 }
 ```
 

@@ -12,7 +12,8 @@
 declare(strict_types=1);
 
 return function (): string {
-    return <<<HTML
-        <footer>Footer</footer>
-    HTML;
+    return
+        <<<HTML
+            <footer>Footer</footer>
+        HTML;
 };

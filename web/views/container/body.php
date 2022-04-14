@@ -12,9 +12,10 @@
 declare(strict_types=1);
 
 return function (string $body): string {
-    return <<<HTML
-    <body>
-    $body
-    </body>
-    HTML;
+    return
+        <<<HTML
+        <body>
+        $body
+        </body>
+        HTML;
 };
