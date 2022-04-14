@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Chevere\Danky;
+namespace Chevere\Tests;
 
-function import(string $relPath, string ...$namedVars): string
+use PHPUnit\Framework\TestCase;
+
+final class TemplateTest extends TestCase
 {
-    return (new Template((new ImportPath($relPath))->path()))
-        ->call(...$namedVars);
 }

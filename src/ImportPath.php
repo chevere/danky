@@ -15,6 +15,7 @@ namespace Chevere\Danky;
 
 use function Chevere\Message\message;
 use Chevere\Str\Str;
+use Chevere\Throwable\Exceptions\InvalidArgumentException;
 use Chevere\Throwable\Exceptions\LogicException;
 
 final class ImportPath
@@ -64,8 +65,16 @@ final class ImportPath
 
     private function setPath(): void
     {
-        $this->path = (new Str($this->relativePath))
+        $path = (new Str($this->relativePath))
             ->withReplaceFirst('./', $this->basePath . '/')
             ->__toString();
+        $realPath = realpath($path);
+        if (!$realPath) {
+            throw new InvalidArgumentException(
+                message('Template %path% not found')
+                    ->code('%path%', $path)
+            );
+        }
+        $this->path = $realPath;
     }
 }
