@@ -24,16 +24,21 @@ final class ImportPath
 
     private string $basePath;
 
-    public function __construct(private string $relativePath)
+    public function __construct(private string $relativePath, ?string $basePath = null)
     {
-        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1];
-        $file = $backtrace['file'] ?? '';
-        if ($file === '') {
-            throw new LogicException(
-                message('Unable to determine caller file.')
-            );
+        if ($basePath === null) {
+            $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1];
+            $file = $backtrace['file'] ?? '';
+            if ($file === '') {
+                // @codeCoverageIgnoreStart
+                throw new LogicException(
+                    message('Unable to determine caller file.')
+                );
+                // @codeCoverageIgnoreEnd
+            }
+            $basePath = dirname($file);
         }
-        $this->basePath = dirname($file);
+        $this->basePath = $basePath;
         $this->handleRelativePath();
         $this->setPath();
     }

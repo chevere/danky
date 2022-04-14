@@ -32,8 +32,10 @@ final class Template
             $this->callable = require $this->path;
         } catch (Throwable $e) {
             throw new LogicException(
-                message('Unable to require %path%')
+                message: message('Unable to require %path% [%message%]')
                     ->code('%path%', $this->path)
+                    ->code('%message%', $e->getMessage()),
+                previous: $e->getPrevious()
             );
         }
         $this->assertCallable();
@@ -65,16 +67,18 @@ final class Template
     {
         if (!$this->reflection->hasReturnType()) {
             throw new TypeError(
-                message('Template %path% has no return type')
-                    ->code('%path%', $this->path)
+                message: message('Template %path% has no return type')
+                    ->code('%path%', $this->path),
+                code: 100
             );
         }
         /** @var string $return */
         $return = $this->reflection->getReturnType()->getName();
         if ($return !== 'string') {
             throw new TypeError(
-                message('Template %path% must return string')
-                    ->code('%path%', $this->path)
+                message: message('Template %path% must return string')
+                    ->code('%path%', $this->path),
+                code: 110
             );
         }
     }

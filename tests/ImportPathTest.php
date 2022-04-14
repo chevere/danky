@@ -14,17 +14,26 @@ declare(strict_types=1);
 namespace Chevere\Tests;
 
 use Chevere\Danky\ImportPath;
+use Chevere\Throwable\Exceptions\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 final class ImportPathTest extends TestCase
 {
-    public function testRelativePaths(): void
+    public function testPaths(): void
     {
-        foreach (['./file.php', './file', 'file.php'] as $argument) {
-            $path = new ImportPath($argument);
-            $this->assertSame($path->basePath(), dirname($path->path()));
-            $this->assertSame($path->basePath() . '/file.php', $path->path());
-            $this->assertSame('./file.php', $path->relativePath());
+        foreach (['./tag.php', './tag', 'tag.php'] as $argument) {
+            $aux = '_resources';
+            $argument = str_replace('%r', $aux, $argument);
+            $import = new ImportPath($argument, __DIR__ . "/$aux");
+            $this->assertSame($import->basePath(), dirname($import->path()));
+            $this->assertSame($import->basePath() . '/tag.php', $import->path());
+            $this->assertSame('./tag.php', $import->relativePath());
         }
+    }
+
+    public function testMissingPath(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        new ImportPath('tag.php');
     }
 }
