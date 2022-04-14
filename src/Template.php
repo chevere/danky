@@ -47,10 +47,10 @@ final class Template
     {
         $this->assertCallParameters(...$namedVars);
         
-        /** @var callable $callable */
-        $callable = $this->callable;
+        /** @var callable $function */
+        $function = $this->callable;
 
-        return ($this->callable)(...$namedVars);
+        return $function(...$namedVars);
     }
 
     private function assertCallable(): void
