@@ -11,7 +11,8 @@
 
 declare(strict_types=1);
 
-return
-    <<<EOT
+return function (): string {
+    return <<<EOT
         <footer>Footer</footer>
     EOT;
+};

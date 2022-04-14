@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-return function (string $tag, string $content) {
+return function (string $tag, string $content): string {
     return
         <<<EOT
         <$tag>$content</$tag>

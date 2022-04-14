@@ -13,4 +13,4 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-echo include __DIR__ . '/web/views/home.php';
+echo(include __DIR__ . '/web/views/home.php')();

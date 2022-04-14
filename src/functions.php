@@ -25,42 +25,50 @@ function import(string $relPath, string ...$namedVars): string
     $realPath = realpath($path);
     if (!$realPath) {
         throw new InvalidArgumentException(
-            message('Import path %path% not found')
+            message('Template %path% not found')
                 ->code('%path%', $path)
         );
     }
     $callable = require $realPath;
-    if (is_callable($callable)) {
-        $reflection = new ReflectionFunction($callable);
-        $parameters = $reflection->getParameters();
-        $missingVars = [];
-        /** @var ReflectionParameter $parameter */
-        foreach ($parameters as $pos => $parameter) {
-            if ($parameter->isOptional()) {
-                continue;
-            }
-            if (!array_key_exists($parameter->name, $namedVars)) {
-                $missingVars[] = $parameter->name;
-            }
+    if (!is_callable($callable)) {
+        throw new TypeError(
+            message('Template %path% is not of type callable')
+                ->code('%path%', $path)
+        );
+    }
+    $reflection = new ReflectionFunction($callable);
+    if (!$reflection->hasReturnType()) {
+        throw new TypeError(
+            message('Template %path% has no return type')
+                ->code('%path%', $path)
+        );
+    }
+    /** @var string $return */
+    $return = $reflection->getReturnType()->getName();
+    if ($return !== 'string') {
+        throw new TypeError(
+            message('Template %path% must return string')
+                ->code('%path%', $path)
+        );
+    }
+    $parameters = $reflection->getParameters();
+    $missingVars = [];
+    /** @var ReflectionParameter $parameter */
+    foreach ($parameters as $pos => $parameter) {
+        if ($parameter->isOptional()) {
+            continue;
         }
-        if ($missingVars !== []) {
-            throw new InvalidArgumentException(
-                message('Missing variables %parameters% for template %path%')
+        if (!array_key_exists($parameter->name, $namedVars)) {
+            $missingVars[] = $parameter->name;
+        }
+    }
+    if ($missingVars !== []) {
+        throw new InvalidArgumentException(
+            message('Missing variables %parameters% for template %path%')
                     ->code('%path%', $path)
                     ->code('%parameters%', implode(', ', $missingVars))
-            );
-        }
-
-        return $callable(...$namedVars);
+        );
     }
 
-    return match (true) {
-        is_string($callable) => $callable,
-        is_scalar($callable) => strval($callable),
-        method_exists($callable, '__toString') => $callable->__toString(),
-        default => throw new TypeError(
-            message('Invalid return type provided for template %path%')
-                ->code('%path%', $path)
-        )
-    };
+    return $callable(...$namedVars);
 }

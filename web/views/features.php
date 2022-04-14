@@ -11,9 +11,10 @@
 
 declare(strict_types=1);
 
-$title = 'Features';
+return function (): string {
+    $title = 'Features';
 
-return
-    <<<EOT
-    <main>$title</main>
+    return <<<EOT
+        <main>$title</main>
     EOT;
+};

@@ -11,7 +11,8 @@
 
 declare(strict_types=1);
 
-return
-    <<<EOT
+return function (): string {
+    return <<<EOT
         <nav>Nav</nav>
     EOT;
+};
