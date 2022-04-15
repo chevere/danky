@@ -19,6 +19,7 @@ use Chevere\Throwable\Errors\TypeError;
 use Chevere\Throwable\Exceptions\InvalidArgumentException;
 use Chevere\Throwable\Exceptions\LogicException;
 use ReflectionFunction;
+use ReflectionParameter;
 use Throwable;
 
 final class Template
@@ -91,10 +92,8 @@ final class Template
         $missingVars = [];
         /** @var ReflectionParameter $parameter */
         foreach ($this->reflection->getParameters() as $parameter) {
-            if ($parameter->isOptional()) {
-                continue;
-            }
-            if (!array_key_exists($parameter->name, $namedVars)) {
+            if (!$parameter->isOptional()
+                && !array_key_exists($parameter->name, $namedVars)) {
                 $missingVars[] = $parameter->name;
             }
         }

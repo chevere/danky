@@ -65,4 +65,11 @@ final class TemplateTest extends TestCase
         $this->expectExceptionCode(110);
         $this->getTemplate('callable-no-string-return');
     }
+
+    public function testTagOptional(): void
+    {
+        $template = $this->getTemplate('tag-optional');
+        $string = $template->call(tag: 'tag');
+        $this->assertSame('<tag>default</tag>', $string);
+    }
 }
