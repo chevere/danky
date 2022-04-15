@@ -32,12 +32,7 @@ return function(string $text, string $author): string {
 <?php // home.php
 use function Chevere\Danky\import;
 
-return function(): string {
-    $quote = import(
-        'quote',
-        text: 'Hello, world!',
-        author: 'Rodolfo'
-    );
+return function(string $quote): string {
     return
         <<<HTML
         <main>
@@ -55,7 +50,15 @@ use function Chevere\Danky\import;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-echo import('home');
+echo
+    import(
+        'home',
+        quote: import(
+            'quote',
+            text: 'Hello, world!',
+            author: 'Rodolfo'
+        )
+    );
 ```
 
 ```html
@@ -66,48 +69,41 @@ echo import('home');
 
 ## Danky motivation
 
-PHP is an extraordinary language for templates, but it gets dirt when mixed with large HTML markup. This problem drove development for template-syntax alternatives ([Twig](https://twig.symfony.com/), [Smarty](https://www.smarty.net/), [Latte](https://latte.nette.org/en/), etc.) where PHP get either limited or stripped away. These systems where a reflection of its times, to how we used to build and published websites.
+PHP is an extraordinary language for templates, but it gets dirt when mixed with large non-PHP syntax. This problem drove development for template-syntax alternatives ([Twig](https://twig.symfony.com/), [Smarty](https://www.smarty.net/), [Latte](https://latte.nette.org/en/), etc.) where PHP gets either limited or stripped away. These systems where a reflection of its times, to how we used to build and published websites.
 
-Danky is on the [Plates](https://platesphp.com/) category, both use native PHP without requiring to learn a template syntax. But Danky is **stricter** as templates are typed, scooped under a function and highly testeable.
+Danky use native PHP without requiring to learn a template syntax. Danky is like [Plates](https://platesphp.com/), but Danky is **stricter** as templates are typed, scooped under a function and highly testeable.
 
 ## Danky times
 
 ### Dead simple
 
-Define your views, an entrypoint and `import` passing the variables.
-
-* Simple to follow workflow.
-* No extra magic.
+Define your views and their variables. Simple to follow workflow, `import` all the things.
 
 ### No template engine
 
-Danky doesn't use a template engine, it is just PHP to HTML.
+Danky doesn't use a template engine, it is just PHP template functions to HTML.
 
 * Full PHP syntax support.
 * Re-usable view-scooped templates.
-* No need to learn any template syntax.
 
-### Safe
+### Strict
 
-Danky templates declares their signature for strong-typed checks.
+Danky templates are functions, with explicit variables declaration and returning `string`. Templates aren't just generics bytes.
 
 * Templates can be easily tested.
 * Strict runtime checking.
 
-### Cheap
+### Lightweight
 
-Danky runs with very low dependencies and it generates documents that can be used for any purpose.
+Danky runs with very low dependencies and the codebase is tiny. You won't even notice that Danky is there.
 
 * Lightweight footprint.
-* Generate HTML and other types of markup.
 
 ### Fast
 
-Get started in minutes and start previewing website changes instantly as you develop. Also, production website generation is so darn fast!
+Get started in minutes, simply install it and start crafting templates. No need to learn a new template syntax
 
 * **Getting started** will take you less than 5 minutes.
-* Preview your changes on-the-fly.
-* Generate documents in seconds.
 
 ## License
 

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Chevere\Tests;
 
 use Chevere\Danky\Template;
+use function Chevere\Filesystem\filePhpReturnForPath;
 use Chevere\Throwable\Errors\TypeError;
 use Chevere\Throwable\Exceptions\InvalidArgumentException;
 use Chevere\Throwable\Exceptions\LogicException;
@@ -25,7 +26,9 @@ final class TemplateTest extends TestCase
     {
         $aux = '_resources';
 
-        return new Template(__DIR__ . "/$aux/$basename.php");
+        return new Template(
+            filePhpReturnForPath(__DIR__ . "/$aux/$basename.php")
+        );
     }
 
     public function testConstruct(): void

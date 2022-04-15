@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-return function (string $tag, string $content): string {
+return function (string $tag, string $content = ''): string {
     return
         <<<HTML
         <$tag>$content</$tag>

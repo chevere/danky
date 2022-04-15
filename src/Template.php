@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Chevere\Danky;
 
+use Chevere\Filesystem\Interfaces\FilePhpReturnInterface;
 use function Chevere\Message\message;
 use Chevere\Throwable\Errors\TypeError;
 use Chevere\Throwable\Exceptions\InvalidArgumentException;
@@ -26,10 +27,12 @@ final class Template
     
     private ReflectionFunction $reflection;
 
-    public function __construct(private string $path)
+    public function __construct(private FilePhpReturnInterface $file)
     {
+        $this->path = $this->file->filePhp()->file()->path()->__toString();
+
         try {
-            $this->callable = require $this->path;
+            $this->callable = $this->file->raw();
         } catch (Throwable $e) {
             throw new LogicException(
                 message: message('Unable to require %path% [%message%]')
