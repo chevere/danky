@@ -14,10 +14,11 @@
 
 Danky is a template system for PHP. Contrary to all other template systems and engines, in Danky **templates are functions** provided as file returns.
 
-✅ In Danky, templates **explicit declare** its scope and parameters.
+🦄 In Danky, templates **explicit declare** its scope, parameters and `string` return type.
 
 ```php
 <?php // quote.php
+
 return function(string $text, string $author): string {
     return
         <<<HTML
@@ -26,26 +27,24 @@ return function(string $text, string $author): string {
 };
 ```
 
-👽 Danky hits you higher as you can create **nested templates**.
-
 ```php
 <?php // home.php
-use function Chevere\Danky\import;
 
-return function(string $quote): string {
+return function(string $content): string {
     return
         <<<HTML
         <main>
-            $quote
+            $content
         </main>
         HTML;
 }
 ```
 
-🦄 Danky stuff are **simple strings**, wire it to your please.
+👽 Next, `import` which runs the template function.
 
 ```php
 <?php // index.php
+
 use function Chevere\Danky\import;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -53,13 +52,15 @@ require_once __DIR__ . '/vendor/autoload.php';
 echo
     import(
         'home',
-        quote: import(
+        content: import(
             'quote',
             text: 'Hello, world!',
             author: 'Rodolfo'
         )
     );
 ```
+
+🥳 **Congratulations**! You just mastered Danky.
 
 ```html
 <main>
