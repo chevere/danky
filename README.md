@@ -12,7 +12,7 @@
 
 ## What is Danky?
 
-Danky is a template system for PHP. Contrary to all other template systems and engines, in Danky **templates are functions** provided as file returns.
+Danky is a native template system for PHP. Contrary to all other template systems and engines, in Danky **templates are functions** provided as file returns.
 
 🦄 In Danky, templates **explicit declare** its scope, parameters and `string` return type.
 
