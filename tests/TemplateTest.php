@@ -17,7 +17,7 @@ use Chevere\Danky\Template;
 use function Chevere\Filesystem\filePhpReturnForPath;
 use Chevere\Throwable\Errors\TypeError;
 use Chevere\Throwable\Exceptions\InvalidArgumentException;
-use Chevere\Throwable\Exceptions\LogicException;
+use Chevere\Throwable\Exceptions\RuntimeException;
 use PHPUnit\Framework\TestCase;
 
 final class TemplateTest extends TestCase
@@ -40,30 +40,37 @@ final class TemplateTest extends TestCase
         $template->call(foo: 'bar');
     }
     
-    public function testNotCallable(): void
+    public function testNotClosure(): void
     {
         $this->expectException(TypeError::class);
-        $this->getTemplate('not-callable');
+        $this->getTemplate('not-closure');
     }
 
     public function testUndefinedVars(): void
     {
-        $this->expectException(LogicException::class);
+        $this->expectException(RuntimeException::class);
         $this->getTemplate('undefined-vars');
     }
 
-    public function testCallableNoReturn(): void
+    public function testClosureNoReturn(): void
     {
         $this->expectException(TypeError::class);
         $this->expectExceptionCode(100);
-        $this->getTemplate('callable-no-return');
+        $this->getTemplate('closure-no-return');
     }
 
-    public function testCallableNoStringReturn(): void
+    public function testClosureNoStringReturn(): void
     {
         $this->expectException(TypeError::class);
         $this->expectExceptionCode(110);
-        $this->getTemplate('callable-no-string-return');
+        $this->getTemplate('closure-no-string-return');
+    }
+
+    public function testClosureUnionReturn(): void
+    {
+        $this->expectException(TypeError::class);
+        $this->expectExceptionCode(120);
+        $this->getTemplate('closure-union-return');
     }
 
     public function testTagOptional(): void

@@ -17,14 +17,17 @@ use Chevere\Filesystem\Interfaces\FilePhpReturnInterface;
 use function Chevere\Message\message;
 use Chevere\Throwable\Errors\TypeError;
 use Chevere\Throwable\Exceptions\InvalidArgumentException;
-use Chevere\Throwable\Exceptions\LogicException;
+use Closure;
 use ReflectionFunction;
+use ReflectionNamedType;
 use ReflectionParameter;
-use Throwable;
+use ReflectionUnionType;
 
 final class Template
 {
-    private mixed $callable;
+    private string $path;
+
+    private Closure $closure;
     
     private ReflectionFunction $reflection;
 
@@ -33,17 +36,19 @@ final class Template
         $this->path = $this->file->filePhp()->file()->path()->__toString();
 
         try {
-            $this->callable = $this->file->raw();
-        } catch (Throwable $e) {
-            throw new LogicException(
-                message: message('Unable to require %path% [%message%]')
+            // @phpstan-ignore-next-line
+            $this->closure = $this->file->raw();
+            // @phpstan-ignore-next-line
+        } catch (\TypeError $e) {
+            throw new TypeError(
+                message: message('Template %path% is not a closure [%message%]')
                     ->code('%path%', $this->path)
-                    ->code('%message%', $e->getMessage()),
-                previous: $e->getPrevious()
+                    ->strtr('%message%', $e->getMessage()),
+                previous: $e
             );
         }
-        $this->assertCallable();
-        $this->reflection = new ReflectionFunction($this->callable);
+        // @phpstan-ignore-next-line
+        $this->reflection = new ReflectionFunction($this->closure);
         $this->assertReturnType();
     }
 
@@ -52,19 +57,9 @@ final class Template
         $this->assertCallParameters(...$namedVars);
         
         /** @var callable $function */
-        $function = $this->callable;
+        $function = $this->closure;
 
         return $function(...$namedVars);
-    }
-
-    private function assertCallable(): void
-    {
-        if (!is_callable($this->callable)) {
-            throw new TypeError(
-                message('Template %path% is not of type callable')
-                    ->code('%path%', $this->path)
-            );
-        }
     }
 
     private function assertReturnType(): void
@@ -76,12 +71,23 @@ final class Template
                 code: 100
             );
         }
+        /** @var ReflectionNamedType|ReflectionUnionType $returnType */
+        $returnType = $this->reflection->getReturnType();
+        if ($returnType instanceof ReflectionUnionType) {
+            throw new TypeError(
+                message: message('Template %path% must declare a single %type% return type')
+                    ->code('%path%', $this->path)
+                    ->code('%type%', 'string'),
+                code: 120
+            );
+        }
         /** @var string $return */
-        $return = $this->reflection->getReturnType()->getName();
+        $return = $returnType->getName();
         if ($return !== 'string') {
             throw new TypeError(
-                message: message('Template %path% must return string')
-                    ->code('%path%', $this->path),
+                message: message('Template %path% must declare %type% return type')
+                    ->code('%path%', $this->path)
+                    ->code('%type%', 'string'),
                 code: 110
             );
         }
