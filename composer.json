@@ -1,6 +1,6 @@
 {
     "name": "chevere/danky",
-    "description": "Static site generator (SSG) and templating system",
+    "description": "Native templating system for PHP",
     "homepage": "https://chevere.org",
     "type": "library",
     "license": "Apache-2.0",
