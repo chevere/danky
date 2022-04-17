@@ -1,6 +1,6 @@
 {
     "name": "chevere/danky",
-    "description": "Native templating system for PHP",
+    "description": "Native template system for PHP",
     "homepage": "https://chevere.org",
     "type": "library",
     "license": "Apache-2.0",
