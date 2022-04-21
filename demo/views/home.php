@@ -12,9 +12,11 @@
 declare(strict_types=1);
 
 use function Chevere\Danky\import;
+use function Chevere\Danky\template;
 
 return function (string $header, string $footer): string {
     $title = 'Home';
+    $template = template('common/head');
     $head = <<<HTML
         <link rel="stylesheet" href="/web/css/home.css">
     HTML;

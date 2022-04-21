@@ -66,47 +66,18 @@ echo
 
 ```html
 <main>
-    <quote>"Hello, world!" --Rodolfo</quote>
+    <quote>"Hello, world!"</quote>
 </main>
 ```
 
-## Danky motivation
+There's also the `template` function, which returns the function closure.
 
-PHP is an extraordinary language for templates, but it gets dirt when mixed with large non-PHP syntax. This problem drove development for template-syntax alternatives ([Twig](https://twig.symfony.com/), [Smarty](https://www.smarty.net/), [Latte](https://latte.nette.org/en/), etc.) where PHP gets either limited or stripped away. These systems where a reflection of its times, to how we used to build and published websites.
+```php
+use function Chevere\Danky\template;
 
-Danky use native PHP without requiring to learn a template syntax. Danky is like [Plates](https://platesphp.com/), but Danky is **stricter** as templates are typed, scooped under a function and highly testeable.
-
-## Danky times
-
-### Dead simple
-
-Define your views and their variables. Simple to follow workflow, `import` all the things.
-
-### No template engine
-
-Danky doesn't use a template engine, it is just PHP template functions to HTML.
-
-* Full PHP syntax support.
-* Re-usable view-scooped templates.
-
-### Strict
-
-Danky templates are functions, with explicit variables declaration and returning `string`. Templates aren't just generics bytes.
-
-* Templates can be easily tested.
-* Strict runtime checking.
-
-### Lightweight
-
-Danky runs with very low dependencies and the codebase is tiny. You won't even notice that Danky is there.
-
-* Lightweight footprint.
-
-### Fast
-
-Get started in minutes, simply install it and start crafting templates. No need to learn a new template syntax
-
-* **Getting started** will take you less than 5 minutes.
+$template = template('home');
+$home_one = $template(content: '"Hola, mundo!");
+```
 
 ## License
 
