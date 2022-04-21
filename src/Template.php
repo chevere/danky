@@ -52,7 +52,7 @@ final class Template
         $this->assertReturnType();
     }
 
-    public function call(string ...$namedVars): string
+    public function call(mixed ...$namedVars): string
     {
         $this->assertCallParameters(...$namedVars);
         
@@ -93,7 +93,7 @@ final class Template
         }
     }
 
-    private function assertCallParameters(string ...$namedVars): void
+    private function assertCallParameters(mixed ...$namedVars): void
     {
         $missingVars = [];
         /** @var ReflectionParameter $parameter */

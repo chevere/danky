@@ -12,9 +12,9 @@
 declare(strict_types=1);
 
 return function (string $body): string {
-    return <<<EOT
+    return <<<HTML
     <body>
     $body
     </body>
-    EOT;
+    HTML;
 };

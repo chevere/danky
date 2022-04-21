@@ -15,14 +15,14 @@ use function Chevere\Danky\import;
 
 return function (string $header, string $footer): string {
     $title = 'Home';
-    $head = <<<EOT
+    $head = <<<HTML
         <link rel="stylesheet" href="/web/css/home.css">
-    EOT;
-    $body = <<<EOT
+    HTML;
+    $body = <<<HTML
     $header
         <main>$title</main>
     $footer
-    EOT;
+    HTML;
 
     return import(
         'container/html',

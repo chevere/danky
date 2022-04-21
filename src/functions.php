@@ -18,7 +18,7 @@ use Chevere\Filesystem\Interfaces\DirInterface;
 use function Chevere\Message\message;
 use Chevere\Throwable\Exceptions\LogicException;
 
-function import(string $relPath, string ...$namedVars): string
+function import(string $relPath, mixed ...$namedVars): string
 {
     $importPath = new Import(
         path: $relPath,
