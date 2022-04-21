@@ -52,6 +52,11 @@ final class Template
         $this->assertReturnType();
     }
 
+    public function closure(): Closure
+    {
+        return $this->closure;
+    }
+
     public function call(mixed ...$namedVars): string
     {
         $this->assertCallParameters(...$namedVars);

@@ -17,6 +17,7 @@ use function Chevere\Filesystem\dirForPath;
 use Chevere\Filesystem\Interfaces\DirInterface;
 use function Chevere\Message\message;
 use Chevere\Throwable\Exceptions\LogicException;
+use Closure;
 
 function import(string $relPath, mixed ...$namedVars): string
 {
@@ -27,6 +28,17 @@ function import(string $relPath, mixed ...$namedVars): string
 
     return (new Template($importPath->file()))
         ->call(...$namedVars);
+}
+
+function template(string $relPath): Closure
+{
+    $importPath = new Import(
+        path: $relPath,
+        dir: callerDir()
+    );
+
+    return (new Template($importPath->file()))
+        ->closure();
 }
 
 function callerDir(): DirInterface

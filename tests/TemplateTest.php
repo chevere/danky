@@ -33,8 +33,14 @@ final class TemplateTest extends TestCase
 
     public function testConstruct(): void
     {
+        $args = [
+            'tag' => 'a',
+            'content' => 'text'
+        ];
         $template = $this->getTemplate('tag');
-        $string = $template->call(tag: 'a', content: 'text');
+        $string = $template->call(...$args);
+        $closure = $template->closure();
+        $this->assertSame('<a>text</a>', $closure(...$args));
         $this->assertSame('<a>text</a>', $string);
         $this->expectException(InvalidArgumentException::class);
         $template->call(foo: 'bar');

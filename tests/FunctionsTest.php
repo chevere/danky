@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Chevere\Tests;
 
 use function Chevere\Danky\import;
+use function Chevere\Danky\template;
 use PHPUnit\Framework\TestCase;
 
 final class FunctionsTest extends TestCase
@@ -28,6 +29,22 @@ final class FunctionsTest extends TestCase
         $this->assertSame(
             '<div>Hello World</div>',
             $tag
+        );
+    }
+
+    public function testTemplate(): void
+    {
+        $closure = template(
+            './_resources/tag.php',
+        );
+        $this->assertSame(
+            '<div>Hello World</div>',
+            $closure(
+                ...[
+                    'tag' => 'div',
+                    'content' => 'Hello World'
+                ]
+            )
         );
     }
 }
