@@ -7,7 +7,7 @@
             "",
             "return function(): string",
             "{",
-            "\treturn <<<EOT",
+            "\treturn <<<HTML",
             "\t\t$0",
             "\tEOT;",
             "};"
