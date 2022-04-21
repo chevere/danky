@@ -25,7 +25,7 @@ return function (string $header, string $footer): string {
     HTML;
 
     return import(
-        'container/html',
+        'common/html',
         head: $head,
         body: $body,
     );
