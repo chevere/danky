@@ -57,3 +57,16 @@ function callerDir(int $depth = 1): DirInterface
 
     return dirForPath(dirname($file));
 }
+
+function strictPath(string $path): string
+{
+    if (!str_ends_with($path, '.php')) {
+        $path .= '.php';
+    }
+    if ($path[0] !== '/'
+        && !str_starts_with($path, './')) {
+        $path = './' . $path;
+    }
+
+    return $path;
+}

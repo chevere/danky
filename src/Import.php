@@ -28,14 +28,7 @@ final class Import
         private string $path,
         private DirInterface $dir
     ) {
-        if (!str_ends_with($this->path, '.php')) {
-            $this->path .= '.php';
-        }
-        if ($this->path[0] !== '/'
-            && !str_starts_with($this->path, './')) {
-            $this->path = './' . $this->path;
-        }
-        
+        $this->path = strictPath($path);
         $this->setFile();
     }
 
