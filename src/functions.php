@@ -18,10 +18,10 @@ use Chevere\Filesystem\Interfaces\DirInterface;
 use function Chevere\Message\message;
 use Chevere\Throwable\Exceptions\LogicException;
 
-function import(string $relPath, mixed ...$namedVars): string
+function import(string $path, mixed ...$namedVars): string
 {
     $importPath = new Import(
-        path: $relPath,
+        path: $path,
         dir: callerDir()
     );
 
@@ -29,10 +29,10 @@ function import(string $relPath, mixed ...$namedVars): string
         ->call(...$namedVars);
 }
 
-function template(string $relPath): callable
+function template(string $path): callable
 {
     $importPath = new Import(
-        path: $relPath,
+        path: $path,
         dir: callerDir()
     );
 
@@ -40,9 +40,12 @@ function template(string $relPath): callable
         ->closure();
 }
 
-function callerDir(): DirInterface
+function callerDir(int $depth = 1): DirInterface
 {
-    $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1];
+    $backtrace = debug_backtrace(
+        DEBUG_BACKTRACE_IGNORE_ARGS,
+        $depth + 1
+    )[$depth];
     $file = $backtrace['file'] ?? '';
     if ($file === '') {
         // @codeCoverageIgnoreStart
