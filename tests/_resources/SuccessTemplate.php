@@ -11,7 +11,14 @@
 
 declare(strict_types=1);
 
-return
-    <<<HTML
-    <tag>content</tag>
-    HTML;
+namespace Chevere\Tests\_resources;
+
+use Chevere\Danky\Template;
+
+class SuccessTemplate extends Template
+{
+    public function __construct()
+    {
+        $this->render = 'success';
+    }
+}

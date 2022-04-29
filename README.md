@@ -12,50 +12,58 @@
 
 ## What is Danky?
 
-Danky is a native template system for PHP. Contrary to all other template systems and engines, in Danky **templates are functions** provided as file returns.
+Danky is a typed template system for PHP. Contrary to all other template systems, in Danky **templates are classes**.
 
-🦄 In Danky, templates **explicit declare** its scope, parameters and `string` return type.
+🦄 Templates **explicit declare** its scope on construct, the `$render` property can be of type `string` or `Template`.
 
 ```php
-<?php // quote.php
+<?php // Quote.php
 
-return function(string $text, string $author): string {
-    return
-        <<<HTML
-        <quote>"$text" --$author</quote>
-        HTML;
+use Chevere\Danky\Template;
+
+class Quote extends Template
+{
+    public function __construct(string $text, string $author) {
+        $this->render =
+            <<<HTML
+            <quote>"$text" --$author</quote>
+            HTML;
+    }
 };
 ```
 
 That `<<<HTML ...` is [Heredoc](https://www.php.net/manual/en/language.types.string.php#language.types.string.syntax.heredoc) syntax [string literal](https://www.php.net/manual/en/language.types.string.php). In Danky, you use all the stuff that _has been always there_ to handle multi-line string literals. Heredoc is great for templates as it evaluates variables, making templates clean to read.
 
 ```php
-<?php // home.php
+<?php // Home.php
 
-return function(string $content): string {
-    return
-        <<<HTML
-        <main>
-            $content
-        </main>
-        HTML;
-}
+use Chevere\Danky\Template;
+
+class Home extends Template
+{
+    public function __construct(Template $content) {
+        $this->render =
+            <<<HTML
+            <main>
+                $content
+            </main>
+            HTML;
+    }
+};
 ```
 
-👽 Next, `import` which runs the template function.
+`Template` classes implements `Stringable`, you can use any template object within string literals.
 
 ```php
 <?php // index.php
 
 use function Chevere\Danky\import;
-
-require_once __DIR__ . '/vendor/autoload.php';
+use Home;
+use Quote;
 
 echo
-    import(
-        'home',
-        content: import(
-            'quote',
+    new Home(
+        content: new Quote(
             text: 'Hello, world!',
             author: 'Rodolfo'
         )
@@ -70,14 +78,7 @@ echo
 </main>
 ```
 
-There's also the `template` function, which returns the function closure.
-
-```php
-use function Chevere\Danky\template;
-
-$template = template('home');
-$home_one = $template(content: '"Hola, mundo!");
-```
+Now run `php demo/index.php` for a more complete example.
 
 ## License
 

@@ -1,6 +1,6 @@
 {
     "name": "chevere/danky",
-    "description": "Native template system for PHP",
+    "description": "Typed template system",
     "homepage": "https://chevere.org",
     "type": "library",
     "license": "Apache-2.0",
@@ -21,16 +21,15 @@
         "symplify/easy-coding-standard": "^9.4"
     },
     "autoload": {
-        "files": [
-            "src/functions.php"
-        ],
         "psr-4": {
             "Chevere\\Danky\\": "src/"
+
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Chevere\\Tests\\": "tests/"
+            "Chevere\\Tests\\": "tests/",
+            "Chevere\\Danky\\Demo\\": "demo/"
         }
     },
     "config": {

@@ -11,6 +11,16 @@
 
 declare(strict_types=1);
 
-return function () {
-    return 'test';
-};
+namespace Chevere\Danky\Demo\Views\Common;
+
+use Chevere\Danky\Template;
+
+class Footer extends Template
+{
+    public function __construct()
+    {
+        $this->render = <<<HTML
+            <footer>Footer</footer>
+        HTML;
+    }
+}

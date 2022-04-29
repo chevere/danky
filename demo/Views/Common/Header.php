@@ -11,10 +11,16 @@
 
 declare(strict_types=1);
 
-return function (string $head): string {
-    return <<<HTML
-    <head>
-    $head
-    </head>
-    HTML;
-};
+namespace Chevere\Danky\Demo\Views\Common;
+
+use Chevere\Danky\Template;
+
+class Header extends Template
+{
+    public function __construct()
+    {
+        $this->render = <<<HTML
+            <header>Header</header>
+        HTML;
+    }
+}

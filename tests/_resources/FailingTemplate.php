@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-return function (string $body): string {
-    return <<<HTML
-    <body>
-    $body
-    </body>
-    HTML;
-};
+namespace Chevere\Tests\_resources;
+
+use Chevere\Danky\Template;
+
+class FailingTemplate extends Template
+{
+}

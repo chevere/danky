@@ -11,9 +11,18 @@
 
 declare(strict_types=1);
 
-return function (string $tag, string $content = 'default'): string {
-    return
-        <<<HTML
-        <$tag>$content</$tag>
+namespace Chevere\Danky\Demo\Views\Common;
+
+use Chevere\Danky\Template;
+
+class Head extends Template
+{
+    public function __construct(string $head)
+    {
+        $this->render = <<<HTML
+            <head>
+            $head
+            </head>
         HTML;
-};
+    }
+}

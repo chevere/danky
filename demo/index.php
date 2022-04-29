@@ -11,13 +11,14 @@
 
 declare(strict_types=1);
 
-use function Chevere\Danky\import;
+use Chevere\Danky\Demo\Views\Common\Footer;
+use Chevere\Danky\Demo\Views\Common\Header;
+use Chevere\Danky\Demo\Views\Home;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 echo
-    import(
-        'views/home',
-        header: import('views/common/header'),
-        footer: import('views/common/footer'),
+    new Home(
+        header: new Header(),
+        footer: new Footer(),
     );

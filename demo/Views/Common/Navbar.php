@@ -11,6 +11,16 @@
 
 declare(strict_types=1);
 
-return function (): string|int {
-    return 'test';
-};
+namespace Chevere\Danky\Demo\Views\Common;
+
+use Chevere\Danky\Template;
+
+class Navbar extends Template
+{
+    public function __construct()
+    {
+        $this->render = <<<HTML
+            <nav>Nav</nav>
+        HTML;
+    }
+}
