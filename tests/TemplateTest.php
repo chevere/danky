@@ -24,6 +24,9 @@ final class TemplateTest extends TestCase
     {
         $template = new FailingTemplate();
         $this->expectException(LogicException::class);
+        $this->expectExceptionMessage(
+            sprintf('Property $render must be assigned at %s::__construct', $template::class)
+        );
         $template->__toString();
     }
 
