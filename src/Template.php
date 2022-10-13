@@ -30,11 +30,11 @@ abstract class Template implements Stringable
 
     private function assertRender(): void
     {
-        if (!isset($this->render)) {
+        if (! isset($this->render)) {
             throw new LogicException(
                 message('Property %property% must be assigned at %method%')
-                    ->code('%property%', '$render')
-                    ->code('%method%', $this::class . '::__construct')
+                    ->withCode('%property%', '$render')
+                    ->withCode('%method%', $this::class . '::__construct')
             );
         }
     }

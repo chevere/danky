@@ -12,18 +12,16 @@
         }
     ],
     "require": {
-        "chevere/chevere": "^0.7"
+        "chevere/chevere": "^1.0"
     },
     "require-dev": {
-        "chevere/var-dump": "^0.2",
         "phpstan/phpstan": "^1.5",
         "phpunit/phpunit": "^9.5",
-        "symplify/easy-coding-standard": "^9.4"
+        "symplify/easy-coding-standard": "^11.1"
     },
     "autoload": {
         "psr-4": {
             "Chevere\\Danky\\": "src/"
-
         }
     },
     "autoload-dev": {
@@ -37,9 +35,13 @@
         "sort-packages": true
     },
     "scripts": {
+        "test": "vendor/bin/phpunit -c phpunit.xml",
+        "test-rep": "vendor/bin/phpunit -c phpunit-report.xml",
         "update-cs": "mkdir -p .ecs && cd .ecs && curl -O https://raw.githubusercontent.com/chevere/code-style/main/.ecs/ecs-chevere.php"
     },
     "scripts-descriptions": {
+        "test": "Run test suite",
+        "test-rep": "Run test suite (report)",
         "update-cs": "Update Chevere code style definition"
     }
 }
