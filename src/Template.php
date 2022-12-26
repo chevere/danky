@@ -28,13 +28,17 @@ abstract class Template implements Stringable
         return strval($this->render);
     }
 
-    private function assertRender(): void
+    protected function assertRender(): void
     {
+        // @codeCoverageIgnoreStart
+        $method = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]['function'];
+        // @codeCoverageIgnoreEnd
+        $class = static::class;
         if (! isset($this->render)) {
             throw new LogicException(
-                message('Property %property% must be assigned at %method%')
+                message('Property %property% must be assigned before calling %method%')
                     ->withCode('%property%', '$render')
-                    ->withCode('%method%', $this::class . '::__construct')
+                    ->withCode('%method%', "{$class}::{$method}")
             );
         }
     }

@@ -25,14 +25,21 @@ final class TemplateTest extends TestCase
         $template = new FailingTemplate();
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage(
-            sprintf('Property $render must be assigned at %s::__construct', $template::class)
+            sprintf('Property $render must be assigned before calling %s::__toString', $template::class)
         );
         $template->__toString();
     }
 
-    public function testRender(): void
+    public function testRenderAssert(): void
     {
         $template = new SuccessTemplate();
-        $this->assertSame('success', $template->__toString());
+        $templateWithRender = $template->withRender();
+        $this->assertSame('success', $templateWithRender->__toString());
+        $this->assertSame('success', strval($templateWithRender->render()));
+        $this->expectException(LogicException::class);
+        $this->expectExceptionMessage(
+            sprintf('Property $render must be assigned before calling %s::render', $template::class)
+        );
+        $template->render();
     }
 }

@@ -19,6 +19,20 @@ class SuccessTemplate extends Template
 {
     public function __construct()
     {
-        $this->render = 'success';
+    }
+
+    public function withRender(): self
+    {
+        $new = clone $this;
+        $new->render = 'success';
+
+        return $new;
+    }
+
+    public function render(): string | Template
+    {
+        $this->assertRender();
+
+        return $this->render;
     }
 }
