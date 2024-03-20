@@ -19,8 +19,6 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/chevere/danky/badge)](https://www.codefactor.io/repository/github/chevere/danky)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/b956754f8ff04aaa9ca24a6e4cc21661)](https://www.codacy.com/gh/chevere/danky/dashboard)
 
-![Danky](.github/banner/danky-logo.svg)
-
 ## What is Danky?
 
 Danky is a typed template system for PHP. Contrary to all other template systems, in Danky **templates are classes**.
